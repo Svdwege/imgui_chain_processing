@@ -1,0 +1,5 @@
+= README 
+
+project using imgui with nodes to run open cv over images(hopefully video).
+
+
