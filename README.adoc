@@ -2,4 +2,10 @@
 
 project using imgui with nodes to run open cv over images(hopefully video).
 
+imgui notes
 
+- build multiple subprojects into one shared lib/static lib and link against that
+- https://github.com/leiradel/ImGuiAl/
+- https://github.com/mnesarco/imgui_sugar
+- https://github.com/thedmd/imgui-node-editor
+- https://github.com/epezent/implot
