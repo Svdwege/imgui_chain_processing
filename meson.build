@@ -12,7 +12,7 @@ incs = include_directories(
 )
 
 srcfiles = files(
-  'main.cpp',
+  'src/main.cpp',
 )
 
 exec = executable(
