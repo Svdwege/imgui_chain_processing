@@ -9,3 +9,18 @@ imgui notes
 - https://github.com/mnesarco/imgui_sugar
 - https://github.com/thedmd/imgui-node-editor
 - https://github.com/epezent/implot
+
+
+
+== doing/planned
+
+=== draw to select
+
+----
+
+nodeditor.isInSelectArea(vec2start ,vec2end )
+imnodeFlow.getnodes
+foreach
+Basenode.getpos -> imvec2 
+compare and set basenode.selected(true); and call updatePublicStatus();
+----

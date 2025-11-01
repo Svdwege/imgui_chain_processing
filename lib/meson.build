@@ -11,5 +11,27 @@ imgui_srcs = [
   'implot_items.cpp',
   'ImNodeFlow.cpp',
 ]
-imgui_sharedlib = shared_library('imguilib', imgui_srcs, dependencies: dependency('sdl3'))
-imgui_staticlib = static_library('imguilib', imgui_srcs, dependencies: dependency('sdl3'))
+imgui_sharedlib = shared_library(
+  'imguilib',
+  imgui_srcs,
+  dependencies: dependency('sdl3'),
+  cpp_args: [
+    '-Wall',
+    '-Wextra',
+    '-pedantic',
+    '-mavx',
+    '-march=native',
+  ],
+)
+imgui_staticlib = static_library(
+  'imguilib',
+  imgui_srcs,
+  dependencies: dependency('sdl3'),
+  cpp_args: [
+    '-Wall',
+    '-Wextra',
+    '-pedantic',
+    '-mavx',
+    '-march=native',
+  ],
+)

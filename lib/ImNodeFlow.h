@@ -1081,7 +1081,7 @@ public:
    * @brief <BR>Set the reference to a link
    * @param link Smart pointer to the link
    */
-  virtual void setLink(std::shared_ptr<Link> &link) {}
+  virtual void setLink(std::shared_ptr<Link> &link) { (void)link; }
 
   /**
    * @brief <BR>Delete link reference
@@ -1185,7 +1185,11 @@ protected:
 class ConnectionFilter {
 public:
   static std::function<bool(Pin *, Pin *)> None() {
-    return [](Pin *out, Pin *in) { return true; };
+    return [](Pin *out, Pin *in) {
+      (void)out;
+      (void)in;
+      return true;
+    };
   }
   static std::function<bool(Pin *, Pin *)> SameType() {
     return [](Pin *out, Pin *in) {
@@ -1194,6 +1198,7 @@ public:
   }
   static std::function<bool(Pin *, Pin *)> Numbers() {
     return [](Pin *out, Pin *in) {
+      (void)in;
       return out->getDataType() == typeid(double) ||
              out->getDataType() == typeid(float) ||
              out->getDataType() == typeid(int);

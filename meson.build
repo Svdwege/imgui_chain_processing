@@ -1,5 +1,19 @@
-project('nodeproc', 'cpp', version: '0.0.1')
+project(
+  'nodeproc',
+  'cpp',
+  version: '0.0.1',
+  default_options: [
+    'c_std=c23',
+    'cpp_std=c++23',
+    'warning_level=everything',
+  ],
+)
 
+args = [
+  '-mavx',
+  '-march=native',
+]
+add_global_arguments(args, language: 'cpp')
 sdl3_dep = dependency('sdl3')
 opengl_dep = dependency('opengl')
 
@@ -12,6 +26,7 @@ incs = include_directories(
 )
 
 srcfiles = files(
+  'src/application.cpp',
   'src/main.cpp',
 )
 
