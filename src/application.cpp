@@ -6,6 +6,7 @@
 #include "imgui_impl_sdl3.h"
 #include "imgui_internal.h"
 #include "imgui_sugar.hpp"
+#include "nodes/ImageIn.hpp"
 #include "src/example.hpp"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_opengl.h>
@@ -161,7 +162,11 @@ bool application::update() {
   ImVec2 Pos_Node;
   std::string name;
   bool nodevalid = false;
-
+  if (ImGui::IsKeyPressed(ImGuiKey_LeftShift, true)) {
+    if (ImGui::IsKeyPressed(ImGuiKey_Q, false)) {
+      return true;
+    }
+  }
   ImGui::SetNextWindowSize(window_size);
   ImGui::SetNextWindowPos(window_pos);
   with_Window("Node Editor", nullptr,
@@ -175,9 +180,9 @@ bool application::update() {
         callback(io, neditor);
       }
     }
+
     if (ImGui::IsMouseDragging(ImGuiMouseButton_Right, 0)) {
       if (!SelectionRect(&dragStart, &draggedArea, ImGuiMouseButton_Right)) {
-        // neditor->mINF.screen2grid(dragStart);
         neditor->handleDragArea(neditor->mINF.screen2grid(dragStart),
                                 neditor->mINF.screen2grid(draggedArea));
       }
@@ -187,23 +192,40 @@ bool application::update() {
       ImGuiIO &io = ImGui::GetIO(imContext);
       // if (io.MouseReleased[0]) {}
 
-      auto pos = io.MousePos;
-      auto offset = neditor->mINF.screen2grid(pos);
+      auto mouse = io.MousePos;
+      auto grid = neditor->mINF.screen2grid(io.MousePos);
+      auto diff = mouse - grid;
+      auto loc = grid + diff;
+      // auto offset = neditor->mINF.screen2grid(pos);
 
       ImGui::OpenPopup("PopupFromDrop");
       if (ImGui::BeginPopup("PopupFromDrop")) {
 
-        if (ImGui::Button("Simple")) {
-          auto node = neditor->addNode<SimpleSum>(offset);
+        if (ImGui::Button("imageLoad")) {
+          // ImageInNode
+          auto node = neditor->addNode<ImageInNode>(loc);
           auto nodeins = node->getIns();
+
+          if (nodeins.size() > 0) {
+            nodeins.at(0)->createLink(dragged);
+          }
+
+          ImGui::ClosePopupsExceptModals();
+        }
+        if (ImGui::Button("Simple")) {
+
+          auto node = neditor->addNode<SimpleSum>(loc);
+          auto nodeins = node->getIns();
+
           if (nodeins.size() > 0) {
             nodeins.at(0)->createLink(dragged);
           }
 
           ImGui::ClosePopupsExceptModals();
         } else if (ImGui::Button("Result")) {
-          auto node = neditor->addNode<ResultNode>(offset);
+          auto node = neditor->addNode<ResultNode>(loc);
           auto nodeins = node->getIns();
+
           if (nodeins.size() > 0) {
             nodeins.at(0)->createLink(dragged);
           }

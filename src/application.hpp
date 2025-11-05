@@ -3,6 +3,9 @@
 
 #include "imgui.h"
 #include "imgui_internal.h"
+#include "nodes/Image2Gray.hpp"
+#include "nodes/ImageIn.hpp"
+#include "nodes/ImageShow.hpp"
 #include "src/example.hpp"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_opengl.h>
@@ -39,6 +42,21 @@ private:
        [](ImGuiIO &io, NodeEditor *neditor) {
          auto pos = io.MousePos;
          neditor->addNode<ResultNode>(pos);
+       }},
+      {ImGuiKey_L,
+       [](ImGuiIO &io, NodeEditor *neditor) {
+         auto pos = io.MousePos;
+         neditor->addNode<ImageInNode>(pos);
+       }},
+      {ImGuiKey_P,
+       [](ImGuiIO &io, NodeEditor *neditor) {
+         auto pos = io.MousePos;
+         neditor->addNode<ImageShowNode>(pos);
+       }},
+      {ImGuiKey_G,
+       [](ImGuiIO &io, NodeEditor *neditor) {
+         auto pos = io.MousePos;
+         neditor->addNode<Image2Gray>(pos);
        }},
 
   };

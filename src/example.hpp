@@ -30,7 +30,8 @@ struct NodeEditor : ImFlow::BaseNode {
 
   template <typename T, typename... Params>
   std::shared_ptr<T> addNode(const ImVec2 &pos, Params &&...args) {
-    return mINF.addNode<T>(pos, std::forward<Params>(args)...);
+    return mINF.addNode<T>(mINF.screen2grid(pos),
+                           std::forward<Params>(args)...);
   }
 
   void handleDragArea(ImVec2 start, ImVec2 end) {

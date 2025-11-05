@@ -5,22 +5,20 @@ project using imgui with nodes to run open cv over images(hopefully video).
 imgui notes
 
 - build multiple subprojects into one shared lib/static lib and link against that
+
 - https://github.com/leiradel/ImGuiAl/
+
 - https://github.com/mnesarco/imgui_sugar
-- https://github.com/thedmd/imgui-node-editor
+
+todo fix link -  https://github.com/nodeflow
+
 - https://github.com/epezent/implot
 
 
 
 == doing/planned
 
-=== draw to select
+decode input image based on file type using a node.
+create data type which has data, w, h and metadata(like original file type) which might be needed
 
-----
 
-nodeditor.isInSelectArea(vec2start ,vec2end )
-imnodeFlow.getnodes
-foreach
-Basenode.getpos -> imvec2 
-compare and set basenode.selected(true); and call updatePublicStatus();
-----
